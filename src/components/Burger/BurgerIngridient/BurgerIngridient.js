@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import classes from 'BurgerIngridient.css';
+import classes from './BurgerIngridient.module.css';
 import PropsTypes from 'prop-types';
 
 
@@ -14,7 +14,7 @@ class BurgerIngridient extends Component {
 
         switch (this.props.type) {
             case ('bread-bottom'):
-                ingridient = <div children={classes.BreadBottom}></div>;
+                ingridient = <div className={classes.BreadBottom}></div>;
                 break;
             case ('bread-top'):
                 ingridient = (
