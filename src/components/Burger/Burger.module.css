@@ -6,12 +6,14 @@
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
+    overflow: -moz-scrollbars-none;
 }
 
 @media (min-width: 500px) and (min-height: 400px){
     .Burger{
         width: 350px;
         height: 300px;
+        overflow: -moz-scrollbars-none;
     }
 }
 
@@ -19,6 +21,7 @@
     .Burger{
         width: 450px;
         height: 450px;
+        overflow: -moz-scrollbars-none;
     }
 }
 
@@ -26,5 +29,6 @@
     .Burger{
         width: 700px;
         height: 600px;
+        overflow: -moz-scrollbars-none;
     }
 }
