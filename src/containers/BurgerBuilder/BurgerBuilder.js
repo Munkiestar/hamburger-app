@@ -21,13 +21,24 @@ class BurgerBuilder extends Component {
                 cheese: 0,
                 meat: 0
             },
-            totalPrice: 4
+            totalPrice: 4,
+            purchased: false
         }
         this.handleRemoveIngrediantes = this.handleRemoveIngrediantes.bind(this);
         this.handleAddIngrediantes = this.handleAddIngrediantes.bind(this);
     }
 
-    handleAddIngrediantes(type){
+    updatePurchaseState(ingredients) {
+        const sumIngredients = Object.keys(ingredients).map(key => {
+            return ingredients[key];
+        }).reduce((sum, el) => {
+            return sum + el
+        }, 0);
+        this.setState({purchased: sumIngredients > 0});
+
+    }
+
+    handleAddIngrediantes(type) {
         const oldIngredCount = this.state.ingrediants[type];
         const updatedIngredCount = oldIngredCount + 1;
         const updatedIngrediants = {
@@ -40,12 +51,14 @@ class BurgerBuilder extends Component {
         this.setState({
             totalPrice: newPrice,
             ingrediants: updatedIngrediants
-        })
+        });
+        this.updatePurchaseState(updatedIngrediants);
+
     }
 
-    handleRemoveIngrediantes(type){
+    handleRemoveIngrediantes(type) {
         const oldIngredCount = this.state.ingrediants[type];
-        if(oldIngredCount <= 0){
+        if (oldIngredCount <= 0) {
             return;
         }
         const updatedIngredCount = oldIngredCount - 1;
@@ -59,15 +72,18 @@ class BurgerBuilder extends Component {
         this.setState({
             totalPrice: newPrice,
             ingrediants: updatedIngrediants
-        })
+        });
+        this.updatePurchaseState(updatedIngrediants);
     }
+
+
 
     render() {
 
         const disabledInfo = {
             ...this.state.ingrediants
         }
-        for( let key in disabledInfo){
+        for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
@@ -75,10 +91,11 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Burger ingrediants={this.state.ingrediants}/>
                 <BuildControls
-                addingIngrediant={this.handleAddIngrediantes}
-                removingIngrediants={this.handleRemoveIngrediantes}
-                disabled={disabledInfo}
-                price={this.state.totalPrice}
+                    addingIngrediants={this.handleAddIngrediantes}
+                    removingIngrediants={this.handleRemoveIngrediantes}
+                    disabled={disabledInfo}
+                    price={this.state.totalPrice}
+                    purchased={this.state.purchased}
                 />
             </Aux>
         );
