@@ -31,6 +31,8 @@ class BurgerBuilder extends Component {
         this.handleAddIngrediantes = this.handleAddIngrediantes.bind(this);
         this.updatePurchaseState = this.updatePurchaseState.bind(this);
         this.handlePurchase = this.handlePurchase.bind(this);
+        this.handleCancelPurchase = this.handleCancelPurchase.bind(this);
+        this.handleContinuePurchase = this.handleContinuePurchase.bind(this);
     }
 
     updatePurchaseState(ingredients) {
@@ -87,6 +89,14 @@ class BurgerBuilder extends Component {
         })
     }
 
+    handleCancelPurchase() {
+        this.setState({burgerOrderDone: false})
+    }
+
+    handleContinuePurchase(){
+        alert('You C O N T I N U E ! ! !')
+    }
+
     render() {
 
         const disabledInfo = {
@@ -98,9 +108,13 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.burgerOrderDone}>
+                <Modal show={this.state.burgerOrderDone}
+                       closeModal={this.handleCancelPurchase}
+                >
                     <OrderSummary
                         ingrediants={this.state.ingrediants}
+                        cancelOrder={this.handleCancelPurchase}
+                        continueOrder={this.handleContinuePurchase}
                     />
                 </Modal>
                 <Burger ingrediants={this.state.ingrediants}/>
